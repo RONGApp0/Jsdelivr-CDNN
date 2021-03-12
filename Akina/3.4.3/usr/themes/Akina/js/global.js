@@ -1,4 +1,4 @@
-﻿//ajax评论
+//ajax评论
 var ajaxcomments = function(){
 	var
 	   $body = (window.opera) ? (document.compatMode == "CSS1Compat" ? $('html') : $('body')) : $('html,body');
@@ -282,11 +282,34 @@ $("#toggle-comment-info").click(function click_comment_info(){
             return element.getElementsByTagName('img')[0].alt;
         }
     });
-//searchbox
- $('.js-toggle-search').on('click', function () {
+	
+//搜索盒子
+function removeBox(){
     $('.js-toggle-search').toggleClass('is-active');
     $('.js-search').toggleClass('is-visible');
-    });
+}
+// 搜索按钮
+$('.js-toggle-search').on('click', function () { removeBox() });
+//第一层父
+$(".js-search").click(function(){
+    event.stopPropagation();
+    removeBox();
+});
+//第一层子
+$(".js-search").children().click(function(){
+    event.stopPropagation();
+    if($(this)[0].className!="search-form__inner"){ removeBox() }
+});
+//第二层父
+$(".search-div").click(function(){
+    event.stopPropagation(); 
+    removeBox();
+});
+//第二层子
+$(".search-div").children().click(function(){
+    event.stopPropagation(); 
+    if($(this)[0].className!="submit"){ removeBox() }
+});
 	
 // Show & hide comments
 	$('.comments-hidden').show();
@@ -402,4 +425,4 @@ $(document).ready(function() {
     });
 });
 //版本显示
-console.log("%cAkina for Typecho 3.4.3","background:#ff6d6d;color:#fff;margin:10px;padding:6px;","https://zhebk.cn");
+console.log("%钟意博客","background:#ff6d6d;color:#fff;margin:10px;padding:6px;","https://joibk.cn");
